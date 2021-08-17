@@ -1,0 +1,9 @@
+hooks/
+info/
+objects/
+refs/
+weatherfiles/
+config
+description
+HEAD
+.DS_Store
