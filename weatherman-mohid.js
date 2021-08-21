@@ -166,19 +166,19 @@ class Parse{
           month = '12';
           break;
       }
-      console.log(year, month);
+      //console.log(year, month);
 
-      if (toLoad[year][month]){
-        continue;
+      if (!toLoad[year][month]){
+        let reqData = this.readFile(file);
+        //console.log(reqData);
       }
-
-      let reqData = this.readFile(file);
-      console.log(reqData);
     })
   }
 
   readFile = (fileName) => {
-    return 'hello';
+    let fs = require('fs');
+    let filePath = this.folderPath + '/' + fileName;
+    console.log(filePath);
   }
 }
 
