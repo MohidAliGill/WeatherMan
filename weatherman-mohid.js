@@ -30,7 +30,7 @@ class Main{
       this.parser.filterFiles(year,month);
     }
     this.parser.loadData(this.data);
-    console.log(this.data);
+    //console.log(this.data);
   }
 }
 
@@ -200,7 +200,9 @@ class Parse{
 
 
 (function run(){
+  console.time('run time');
   let driver = new Main();
   driver.checkArgs();
+  console.timeEnd('run time');
 }());
 
