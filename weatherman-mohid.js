@@ -30,7 +30,7 @@ class Main{
       this.parser.filterFiles(year,month);
     }
     this.parser.loadData(this.data);
-    //console.log(this.data);
+    console.log(this.data);
   }
 }
 
@@ -169,16 +169,32 @@ class Parse{
       //console.log(year, month);
 
       if (!toLoad[year][month]){
-        let reqData = this.readFile(file);
-        //console.log(reqData);
+        toLoad[year][month] = {};
+        let rtnArr = this.readThisFile(file);
+        rtnArr.forEach(line => {
+          toLoad[year][month][line[0]] = {'maxTemp':line[1],
+                                          'minTemp':line[2],
+                                          'humidity':line[3]};
+        })
       }
-    })
+    });
   }
 
-  readFile = (fileName) => {
+  readThisFile = (fileName) => {
     let fs = require('fs');
     let filePath = this.folderPath + '/' + fileName;
-    console.log(filePath);
+    let rtnArr = [];
+
+    let metaData = fs.readFileSync(filePath,{encoding:'utf8', flag:'r'});
+    metaData = metaData.split('\n');
+    for (let i=1;i<metaData.length;i++){
+      let toFilter = metaData[i].split(',');
+      if (toFilter.length>1){
+        let currDate = toFilter[0].split('-')[2];
+        rtnArr.push([currDate,toFilter[1],toFilter[3],toFilter[7]]);
+      }
+    }
+    return rtnArr;
   }
 }
 
