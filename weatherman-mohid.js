@@ -4,6 +4,7 @@ class Main{
     this.fileNames = [];
     this.args = process.argv;
     this.parser = new Parse(this.args[2],this.fileNames);
+    this.calculate = new Calculate(this.data);
   }
 
   checkArgs = () => {
@@ -30,7 +31,11 @@ class Main{
       this.parser.filterFiles(year,month);
     }
     this.parser.loadData(this.data);
-    //console.log(this.data);
+    this.processArgs();
+  }
+
+  processArgs = () => {
+    this.calculate.yearlyStats('2010');
   }
 }
 
@@ -42,7 +47,6 @@ class Parse{
     this.fileNames;
     this.requiredFiles = [];
     this.getFilesFromFolder(this.folderPath);
-    //console.log(this.fileNames);
     
   }
 
@@ -166,7 +170,6 @@ class Parse{
           month = '12';
           break;
       }
-      //console.log(year, month);
 
       if (!toLoad[year][month]){
         toLoad[year][month] = {};
@@ -174,7 +177,8 @@ class Parse{
         rtnArr.forEach(line => {
           toLoad[year][month][line[0]] = {'maxTemp':line[1],
                                           'minTemp':line[2],
-                                          'humidity':line[3]};
+                                          'humidity':line[3],
+                                          'meanHumidity':line[4]};
         })
       }
     });
@@ -191,13 +195,136 @@ class Parse{
       let toFilter = metaData[i].split(',');
       if (toFilter.length>1){
         let currDate = toFilter[0].split('-')[2];
-        rtnArr.push([currDate,toFilter[1],toFilter[3],toFilter[7]]);
+        rtnArr.push([currDate,toFilter[1],toFilter[3],toFilter[7],toFilter[8]]);
       }
     }
     return rtnArr;
   }
 }
 
+class Calculate{
+
+  constructor (data){
+    this.data = data;
+    this.highestTemp = {'date':null, 'temp':-Infinity};
+    this.lowestTemp = {'date':null, 'temp':Infinity};
+    this.humidityHigh = {'date':null, 'temp':-Infinity};
+    this.avgHighTemp = {'count':0, 'sum':0};
+    this.avgLowTemp = {'count':0, 'sum':0};
+    this.avgMeanHumidity = {'count':0, 'sum':0};
+
+    this.printer = new Printer();
+  }
+
+  yearlyStats = (year) => {
+
+    for (let month in this.data[year]){
+      for (let day in this.data[year][month]){
+        let dayData = this.data[year][month][day];
+        let dayMaxTemp = dayData['maxTemp'];
+        let dayMinTemp = dayData['minTemp'];
+        let dayMaxHumid = dayData['humidity'];
+        let todayDate = day + '/' + month;
+
+        if (dayMaxTemp !== '' && (dayMaxTemp > this.highestTemp['temp'])){
+          this.highestTemp = {'date':todayDate,
+                              'temp':parseInt(dayMaxTemp)
+
+          };
+        }
+
+        if (dayMinTemp !== '' && (dayMinTemp < this.lowestTemp['temp'])){
+          this.lowestTemp = {'date':todayDate,
+                             'temp':parseInt(dayMinTemp)
+
+          };
+        }
+
+        if (dayMaxHumid !== '' && (dayMaxHumid > this.humidityHigh['temp'])){
+          this.humidityHigh = {'date':todayDate,
+                               'temp':parseInt(dayMaxHumid)
+          };
+        }
+      }
+    }
+
+    this.printer.printYearlyStats(this.highestTemp, this.lowestTemp, this.humidityHigh);
+  }
+
+  monthlyStats = (year, month) => {
+    console.log('monthly stats');
+  }
+
+  dailyStats = (year, month) => {
+    console.log('daily stats');
+  }
+}
+
+class Printer{
+
+  printYearlyStats(dataMaxTemp, dataMinTemp, dataMaxHumid){
+    let [dateMaxTemp, toNameMaxTemp] = dataMaxTemp['date'].split('/');
+    let monthMaxTemp = this.getNameOfMonth(toNameMaxTemp);
+    
+    console.log('Highest:', dataMaxTemp['temp'] + 'C on', monthMaxTemp, dateMaxTemp);
+
+    let [dateMinTemp, toNameMinTemp] = dataMinTemp['date'].split('/');
+    let monthMinTemp = this.getNameOfMonth(toNameMinTemp);
+    
+    console.log('Lowest:', dataMinTemp['temp'] + 'C on', monthMinTemp, dateMinTemp);
+
+    let [dateMaxHumid, toNameMaxHumid] = dataMaxHumid['date'].split('/');
+    let monthMaxHumid = this.getNameOfMonth(toNameMaxHumid);
+    
+    console.log('Humidity:', dataMaxHumid['temp'] + '% on', monthMaxHumid, dateMaxHumid);
+  }
+
+  getNameOfMonth = (monthNumber) => {
+
+    let monthName;
+    
+    switch (monthNumber){
+      case '1':
+        monthName = 'Jan';
+        break;
+      case '2':
+        monthName = 'Feb';
+        break;
+      case '3':
+        monthName = 'Mar';
+        break;
+      case '4':
+        monthName = 'Apr';
+        break;
+      case '5':
+        monthName = 'May';
+        break;
+      case '6':
+        monthName = 'Jun';
+        break;
+      case "7":
+        monthName = 'Jul';
+        break;
+      case '8':
+        monthName = 'Aug';
+        break;
+      case '9':
+        monthName = 'Sep';
+        break;
+      case '10':
+        monthName = 'Oct';
+        break;
+      case '11':
+        monthName = 'Nov';
+        break;
+      case '12':
+        monthName = 'Dec';
+        break;
+    }
+
+    return monthName;
+  }
+}
 
 (function run(){
   console.time('run time');
