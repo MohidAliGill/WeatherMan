@@ -35,7 +35,10 @@ class Main{
   }
 
   processArgs = () => {
-    this.calculate.yearlyStats('2010');
+    //this.calculate.yearlyStats('2010');
+    //this.calculate.yearlyStats('2005');
+    //this.calculate.yearlyStats('2012');
+    this.calculate.monthlyStats('2013','12');
   }
 }
 
@@ -206,17 +209,15 @@ class Calculate{
 
   constructor (data){
     this.data = data;
-    this.highestTemp = {'date':null, 'temp':-Infinity};
-    this.lowestTemp = {'date':null, 'temp':Infinity};
-    this.humidityHigh = {'date':null, 'temp':-Infinity};
-    this.avgHighTemp = {'count':0, 'sum':0};
-    this.avgLowTemp = {'count':0, 'sum':0};
-    this.avgMeanHumidity = {'count':0, 'sum':0};
-
     this.printer = new Printer();
+
   }
 
   yearlyStats = (year) => {
+
+    this.highestTemp = {'date':null, 'temp':-Infinity};
+    this.lowestTemp = {'date':null, 'temp':Infinity};
+    this.humidityHigh = {'date':null, 'temp':-Infinity};
 
     for (let month in this.data[year]){
       for (let day in this.data[year][month]){
@@ -247,12 +248,48 @@ class Calculate{
         }
       }
     }
-
-    this.printer.printYearlyStats(this.highestTemp, this.lowestTemp, this.humidityHigh);
+    this.printer.printYearlyStats(this.highestTemp, this.lowestTemp, this.humidityHigh, year);
   }
 
   monthlyStats = (year, month) => {
-    console.log('monthly stats');
+
+    this.avgHighTemp = {'count':0, 'sum':0};
+    this.avgLowTemp = {'count':0, 'sum':0};
+    this.avgMeanHumidity = {'count':0, 'sum':0};
+
+    for (let day in this.data[year][month]){
+      
+      let dayData = this.data[year][month][day];
+      
+      let dayMaxTemp = dayData['maxTemp'];
+      let dayMinTemp = dayData['minTemp'];
+      let dayMeanHumid = dayData['meanHumidity'];
+
+      if (dayMaxTemp !== ''){
+        this.avgHighTemp['count']++;
+        this.avgHighTemp['sum'] += +dayMaxTemp;
+      }
+
+      if (dayMinTemp !== ''){
+        this.avgLowTemp['count']++;
+        this.avgLowTemp['sum'] += +dayMinTemp;
+      }
+
+      if (dayMeanHumid !== ''){
+        this.avgMeanHumidity['count']++;
+        this.avgMeanHumidity['sum'] += +dayMeanHumid;
+      }
+    }
+
+    let avgMaxTemp = this.avgHighTemp['sum']/this.avgHighTemp['count'];
+    let avgMinTemp = this.avgLowTemp['sum']/this.avgLowTemp['count'];
+    let avgHumid = this.avgMeanHumidity['sum']/this.avgMeanHumidity['count'];
+    
+    avgMaxTemp = avgMaxTemp.toFixed(1);
+    avgMinTemp = avgMinTemp.toFixed(1);
+    avgHumid = avgHumid.toFixed(1);
+
+    this.printer.printMonthlyStats(avgMaxTemp, avgMinTemp, avgHumid, year, month);
   }
 
   dailyStats = (year, month) => {
@@ -262,7 +299,10 @@ class Calculate{
 
 class Printer{
 
-  printYearlyStats(dataMaxTemp, dataMinTemp, dataMaxHumid){
+  printYearlyStats = (dataMaxTemp, dataMinTemp, dataMaxHumid, year) => {
+
+    console.log('\n', year ,'\n');
+
     let [dateMaxTemp, toNameMaxTemp] = dataMaxTemp['date'].split('/');
     let monthMaxTemp = this.getNameOfMonth(toNameMaxTemp);
     
@@ -277,6 +317,19 @@ class Printer{
     let monthMaxHumid = this.getNameOfMonth(toNameMaxHumid);
     
     console.log('Humidity:', dataMaxHumid['temp'] + '% on', monthMaxHumid, dateMaxHumid);
+  }
+
+  printMonthlyStats = (avgMaxTemp, avgMinTemp, avgHumid, year, month) => {
+    
+    console.log('\n', year + '/' + month, '\n');
+
+    console.log('Highest Average:', avgMaxTemp + 'C');
+    console.log('Lowest Average:', avgMinTemp + 'C');
+    console.log('Average Mean Humidity:', avgHumid + '%');
+  }
+
+  printDailyStats = () => {
+    console.log('Daily stats printed');
   }
 
   getNameOfMonth = (monthNumber) => {
@@ -327,9 +380,9 @@ class Printer{
 }
 
 (function run(){
-  console.time('run time');
+  console.time('\nrun time');
   let driver = new Main();
   driver.checkArgs();
-  console.timeEnd('run time');
+  console.timeEnd('\nrun time');
 }());
 
