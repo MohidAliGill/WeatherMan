@@ -35,11 +35,29 @@ class Main{
   }
 
   processArgs = () => {
-    //this.calculate.yearlyStats('2010');
-    //this.calculate.yearlyStats('2005');
-    //this.calculate.yearlyStats('2012');
-    //this.calculate.monthlyStats('2013','12');
-    this.calculate.dailyStats('2013','12');
+    for (let i=3; i<this.args.length; i=i+2){
+      let toDo = this.args[i];
+      let year;
+      let month;
+
+      switch (toDo){
+        case '-e':
+          this.calculate.yearlyStats(this.args[i+1]);
+          break;
+        case '-a':
+          [year,month] = this.args[i+1].split('/');
+          this.calculate.monthlyStats(year,month);
+          break;
+        case '-c':
+          [year,month] = this.args[i+1].split('/');
+
+          this.calculate.dailyStats(year,month);
+          break;
+        default:
+          console.log('Wrong Arguments Passed');
+          return;
+      }
+    }
   }
 }
 
@@ -135,45 +153,7 @@ class Parse{
         toLoad[year] = {};
       }
 
-      let month;
-      switch (monthName){
-        case 'Jan':
-          month = '1';
-          break;
-        case 'Feb':
-          month = '2';
-          break;
-        case 'Mar':
-          month = '3';
-          break;
-        case 'Apr':
-          month = '4';
-          break;
-        case 'May':
-          month = '5';
-          break;
-        case 'Jun':
-          month = '6';
-          break;
-        case 'Jul':
-          month = "7";
-          break;
-        case 'Aug':
-          month = "8";
-          break;
-        case 'Sep':
-          month = "9";
-          break;
-        case 'Oct':
-          month = '10';
-          break;
-        case 'Nov':
-          month = '11';
-          break;
-        case 'Dec':
-          month = '12';
-          break;
-      }
+      let month = this.monthName2MonthNum(monthName);
 
       if (!toLoad[year][month]){
         toLoad[year][month] = {};
@@ -203,6 +183,50 @@ class Parse{
       }
     }
     return rtnArr;
+  }
+
+  monthName2MonthNum = (monthName) => {
+    let month;
+
+    switch (monthName){
+      case 'Jan':
+        month = '1';
+        break;
+      case 'Feb':
+        month = '2';
+        break;
+      case 'Mar':
+        month = '3';
+        break;
+      case 'Apr':
+        month = '4';
+        break;
+      case 'May':
+        month = '5';
+        break;
+      case 'Jun':
+        month = '6';
+        break;
+      case 'Jul':
+        month = "7";
+        break;
+      case 'Aug':
+        month = "8";
+        break;
+      case 'Sep':
+        month = "9";
+        break;
+      case 'Oct':
+        month = '10';
+        break;
+      case 'Nov':
+        month = '11';
+        break;
+      case 'Dec':
+        month = '12';
+        break;
+    }
+    return month;
   }
 }
 
