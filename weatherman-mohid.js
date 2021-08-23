@@ -38,7 +38,8 @@ class Main{
     //this.calculate.yearlyStats('2010');
     //this.calculate.yearlyStats('2005');
     //this.calculate.yearlyStats('2012');
-    this.calculate.monthlyStats('2013','12');
+    //this.calculate.monthlyStats('2013','12');
+    this.calculate.dailyStats('2013','12');
   }
 }
 
@@ -293,7 +294,17 @@ class Calculate{
   }
 
   dailyStats = (year, month) => {
-    console.log('daily stats');
+
+    console.log('\n', year + '/' + month, '\n');
+    for (let day in this.data[year][month]){
+      
+      let dayData = this.data[year][month][day];
+
+      let maxTemp = dayData['maxTemp'];
+      let minTemp = dayData['minTemp'];
+
+      this.printer.printDailyStats(maxTemp, minTemp, day);
+    }
   }
 }
 
@@ -328,8 +339,69 @@ class Printer{
     console.log('Average Mean Humidity:', avgHumid + '%');
   }
 
-  printDailyStats = () => {
-    console.log('Daily stats printed');
+  printDailyStats = (maxTemp, minTemp, day) => {
+
+    let maxStr = '';
+    let minStr = '';
+
+    if (maxTemp === '' || minTemp === ''){
+      if (+day<10){
+        console.log('0' + day, 'DATA DOES NOT EXIST');
+      }
+      else{
+        console.log(day, 'DATA DOES NOT EXIST');
+      }
+      return;
+    }
+
+    if (+maxTemp >= 0 && +minTemp >= 0 ){
+      for (let i=0; i<+minTemp; i++){
+        minStr += '+';
+      }
+      for (let i=+minTemp; i<+maxTemp; i++){
+        maxStr += '+';
+      }
+      if (+day<10){
+        console.log('0' + day, '\x1b[34m' + minStr +'\x1b[31m' + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
+      }
+      else{
+        console.log(day, '\x1b[34m' + minStr + '\x1b[31m' + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
+      }
+    }
+
+    else if (+maxTemp >= 0 && +minTemp < 0){
+      minTemp = minTemp * -1;
+      for (let i = 0; i < +maxTemp; i++){
+        maxStr = maxStr + '+';
+      }
+      for (let i = 0; i < minTemp; i++){
+        minStr = minStr + '+';
+      }
+      if (+day<10){
+        console.log('0' + day, "\x1b[32m" + minStr +'\x1b[31m' + maxStr + "\x1b[37m", '-' + minTemp + 'C - ' + maxTemp + 'C');
+      }
+      else{
+        console.log(day, "\x1b[32m" + minStr + '\x1b[31m' + maxStr + "\x1b[37m", '-' + minTemp + 'C - ' + maxTemp + 'C');
+      }
+    }
+
+    else{
+      maxTemp = maxTemp * -1;
+      minTemp = minTemp * -1;
+
+      for (let i = 0; i < maxTemp; i++){
+        maxStr = maxStr + '+'
+      }
+      for (let i = 0; i<minTemp; i++){
+        minStr = minStr + '+';
+      }
+      if (+day<10){
+        console.log('0' + day, "\x1b[32m" + minStr + "\x1b[35m" + maxStr + "\x1b[37m", '-' + minTemp + 'C - -' + maxTemp + 'C');
+      }
+      else{
+        console.log(day, "\x1b[32m" + minStr + "\x1b[35m" + maxStr + "\x1b[37m", '-' + minTemp + 'C - -' + maxTemp + 'C');
+      }
+    }
   }
 
   getNameOfMonth = (monthNumber) => {
