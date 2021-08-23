@@ -46,12 +46,12 @@ class Main{
           break;
         case '-a':
           [year,month] = this.args[i+1].split('/');
-          this.calculate.monthlyStats(year,month);
+          this.calculate.monthlyStats(year,`${+month}`);
           break;
         case '-c':
           [year,month] = this.args[i+1].split('/');
 
-          this.calculate.dailyStats(year,month);
+          this.calculate.dailyStats(year,`${+month}`);
           break;
         default:
           console.log('Wrong Arguments Passed');
