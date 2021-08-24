@@ -382,7 +382,7 @@ class Printer{
       for (let i=0; i<+minTemp; i++){
         minStr += '+';
       }
-      for (let i=+minTemp; i<+maxTemp; i++){
+      for (let i=0; i<+maxTemp; i++){
         maxStr += '+';
       }
       if (+day<10){
@@ -416,7 +416,7 @@ class Printer{
       for (let i = 0; i < maxTemp; i++){
         maxStr = maxStr + '+'
       }
-      for (let i = 0; i<minTemp-maxTemp; i++){
+      for (let i = 0; i<minTemp; i++){
         minStr = minStr + '+';
       }
       if (+day<10){
