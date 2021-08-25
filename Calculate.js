@@ -1,6 +1,6 @@
-const Printer = require('./Printer.js')
+import Printer from './Printer.js';
 
-class Calculate{
+export default class Calculate{
 
     constructor (data){
       this.data = data;
@@ -102,4 +102,3 @@ class Calculate{
     }
   }
   
-  module.exports = Calculate;

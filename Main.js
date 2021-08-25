@@ -1,7 +1,7 @@
-const Parse = require('./Parse.js');
-const Calculate = require('./Calculate.js');
+import Parse from './Parse.js';
+import Calculate from './Calculate.js';
 
-class Main{
+export default class Main{
     constructor (){
       this.data = {};
       this.fileNames = [];
@@ -63,5 +63,3 @@ class Main{
       }
     }
   }
-
-  module.exports = Main;

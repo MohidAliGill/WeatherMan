@@ -1,4 +1,4 @@
-const Main = require('./Main.js');
+import Main from './Main.js';
 
 (function run(){
     console.time('\nrun time');
