@@ -1,4 +1,5 @@
 import {num2name} from './months.js';
+import { minCol, maxCol, minus, plus, natural} from './printController.js';
 
 export default class Printer{
 
@@ -30,12 +31,8 @@ export default class Printer{
     }
   
     printDailyStats = (props) => {
-      let maxStr = '';
-      let minStr = '';
       let maxNeg = 0;
       let minNeg = 0;
-      let minCol = ['\x1b[34m', '\x1b[32m'];
-      let maxCol = ['\x1b[31m', '\x1b[35m'];
 
       if (props['maxTemp'] === '' || props['minTemp'] === ''){
         if (+props['day']<10){
@@ -59,18 +56,14 @@ export default class Printer{
         maxNeg = 1;
       }
 
-      for (let i=0; i<+props['minTemp']; i++){
-        minStr += '+';
-      }
-      for (let i=0; i<+props['maxTemp']; i++){
-        maxStr += '+';
-      }
+      let maxStr = plus.repeat(+props['maxTemp']);
+      let minStr = plus.repeat(+props['minTemp']);
 
       if (+props['day']<10){
-        console.log('0' + props['day'], minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + "\x1b[37m", props['minTemp'] + 'C - ' + props['maxTemp'] + 'C');
+        props['day'] = '0' + props['day'];
       }
-      else{
-        console.log(props['day'], minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + "\x1b[37m", props['minTemp'] + 'C - ' + props['maxTemp'] + 'C');
-      }
+
+      console.log(props['day'], minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + natural, minus[minNeg] 
+                                               + props['minTemp'] + 'C - ' + minus[maxNeg] + props['maxTemp'] + 'C');
     }
   }
