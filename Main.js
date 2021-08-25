@@ -1,5 +1,6 @@
 import Parse from './Parse.js';
 import Calculate from './Calculate.js';
+import * as commands from './commands.js';
 
 export default class Main{
     constructor (){
@@ -44,14 +45,14 @@ export default class Main{
         let month;
   
         switch (toDo){
-          case '-e':
+          case commands.yearlyStats:
             this.calculate.yearlyStats(this.args[i+1]);
             break;
-          case '-a':
+          case commands.monthlyStats:
             [year,month] = this.args[i+1].split('/');
             this.calculate.monthlyStats(year,`${+month}`);
             break;
-          case '-c':
+          case commands.dailyStats:
             [year,month] = this.args[i+1].split('/');
   
             this.calculate.dailyStats(year,`${+month}`);

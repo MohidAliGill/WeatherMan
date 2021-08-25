@@ -35,7 +35,11 @@ export default class Printer{
   
       let maxStr = '';
       let minStr = '';
-  
+      let maxNeg = 0;
+      let minNeg = 0;
+      let minCol = ['\x1b[34m', '\x1b[32m'];
+      let maxCol = ['\x1b[31m', '\x1b[35m'];
+
       if (maxTemp === '' || minTemp === ''){
         if (+day<10){
           console.log('0' + day, 'DATA DOES NOT EXIST');
@@ -45,54 +49,31 @@ export default class Printer{
         }
         return;
       }
-  
-      if (+maxTemp >= 0 && +minTemp >= 0 ){
-        for (let i=0; i<+minTemp; i++){
-          minStr += '+';
-        }
-        for (let i=0; i<+maxTemp; i++){
-          maxStr += '+';
-        }
-        if (+day<10){
-          console.log('0' + day, '\x1b[34m' + minStr +'\x1b[31m' + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
-        }
-        else{
-          console.log(day, '\x1b[34m' + minStr + '\x1b[31m' + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
-        }
-      }
-  
-      else if (+maxTemp >= 0 && +minTemp < 0){
+
+      if (+maxTemp >= 0 && +minTemp < 0){
         minTemp = minTemp * -1;
-        for (let i = 0; i < +maxTemp; i++){
-          maxStr = maxStr + '+';
-        }
-        for (let i = 0; i < minTemp; i++){
-          minStr = minStr + '+';
-        }
-        if (+day<10){
-          console.log('0' + day, "\x1b[32m" + minStr +'\x1b[31m' + maxStr + "\x1b[37m", '-' + minTemp + 'C - ' + maxTemp + 'C');
-        }
-        else{
-          console.log(day, "\x1b[32m" + minStr + '\x1b[31m' + maxStr + "\x1b[37m", '-' + minTemp + 'C - ' + maxTemp + 'C');
-        }
+        minNeg = 1;
       }
   
-      else{
+      else if (+maxTemp < 0 && +minTemp < 0){
         maxTemp = maxTemp * -1;
         minTemp = minTemp * -1;
-  
-        for (let i = 0; i < maxTemp; i++){
-          maxStr = maxStr + '+'
-        }
-        for (let i = 0; i<minTemp; i++){
-          minStr = minStr + '+';
-        }
-        if (+day<10){
-          console.log('0' + day, "\x1b[32m" + minStr + "\x1b[35m" + maxStr + "\x1b[37m", '-' + minTemp + 'C - -' + maxTemp + 'C');
-        }
-        else{
-          console.log(day, "\x1b[32m" + minStr + "\x1b[35m" + maxStr + "\x1b[37m", '-' + minTemp + 'C - -' + maxTemp + 'C');
-        }
+        minNeg = 1;
+        maxNeg = 1;
+      }
+
+      for (let i=0; i<+minTemp; i++){
+        minStr += '+';
+      }
+      for (let i=0; i<+maxTemp; i++){
+        maxStr += '+';
+      }
+
+      if (+day<10){
+        console.log('0' + day, minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
+      }
+      else{
+        console.log(day, minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + "\x1b[37m", minTemp + 'C - ' + maxTemp + 'C');
       }
     }
   }

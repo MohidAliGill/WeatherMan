@@ -1,7 +1,7 @@
 import fs from 'fs';
 import {num2name, name2num} from './months.js';
 
-export default class Parse{
+export default class Parse {
 
     constructor(path){
       this.folderPath = path;
@@ -42,10 +42,7 @@ export default class Parse{
           toLoad[year][month] = {};
           let rtnArr = this.readThisFile(file);
           rtnArr.forEach(line => {
-            toLoad[year][month][line[0]] = {'maxTemp':line[1],
-                                            'minTemp':line[2],
-                                            'humidity':line[3],
-                                            'meanHumidity':line[4]};
+            toLoad[year][month][line['currDate']] = line;
           })
         }
       });
@@ -61,7 +58,11 @@ export default class Parse{
         let toFilter = metaData[i].split(',');
         if (toFilter.length>1){
           let currDate = toFilter[0].split('-')[2];
-          rtnArr.push([currDate,toFilter[1],toFilter[3],toFilter[7],toFilter[8]]);
+          rtnArr.push({'currDate':currDate,
+                        'maxTemp':toFilter[1],
+                        'minTemp':toFilter[3],
+                        'humidity':toFilter[7],
+                        'meanHumidity':toFilter[8]});
         }
       }
       return rtnArr;
