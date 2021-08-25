@@ -43,7 +43,12 @@ export default class Calculate{
           }
         }
       }
-      this.printer.printYearlyStats(this.highestTemp, this.lowestTemp, this.humidityHigh, year);
+
+      
+      this.printer.printYearlyStats({'dataMaxTemp':this.highestTemp,
+                                     'dataMinTemp':this.lowestTemp,
+                                     'dataMaxHumid':this.humidityHigh, 
+                                     'year':year});
     }
   
     monthlyStats = (year, month) => {
@@ -84,7 +89,11 @@ export default class Calculate{
       avgMinTemp = avgMinTemp.toFixed(1);
       avgHumid = avgHumid.toFixed(1);
   
-      this.printer.printMonthlyStats(avgMaxTemp, avgMinTemp, avgHumid, year, month);
+      this.printer.printMonthlyStats({'avgMaxTemp':avgMaxTemp,
+                                      'avgMinTemp':avgMinTemp, 
+                                      'avgHumid':avgHumid, 
+                                      'year':year,
+                                      'month':month});
     }
   
     dailyStats = (year, month) => {
@@ -97,7 +106,9 @@ export default class Calculate{
         let maxTemp = dayData['maxTemp'];
         let minTemp = dayData['minTemp'];
   
-        this.printer.printDailyStats(maxTemp, minTemp, day);
+        this.printer.printDailyStats({'maxTemp':maxTemp,
+                                      'minTemp':minTemp, 
+                                      'day':day});
       }
     }
   }
