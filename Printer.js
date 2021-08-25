@@ -30,7 +30,6 @@ export default class Printer{
     }
   
     printDailyStats = (props) => {
-      // maxTemp, minTemp, day
       let maxStr = '';
       let minStr = '';
       let maxNeg = 0;
