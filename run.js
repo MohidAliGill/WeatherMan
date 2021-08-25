@@ -2,7 +2,6 @@ import Main from './Main.js';
 
 (function run(){
     console.time('\nrun time');
-    let driver = new Main();
-    driver.checkArgs();
+    new Main();
     console.timeEnd('\nrun time');
   }());

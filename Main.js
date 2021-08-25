@@ -9,6 +9,7 @@ export default class Main{
       this.args = process.argv;
       this.parser = new Parse(this.args[2],this.fileNames);
       this.calculate = new Calculate(this.data);
+      this.checkArgs();
     }
   
     checkArgs = () => {
