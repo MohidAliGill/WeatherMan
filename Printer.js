@@ -34,13 +34,12 @@ export default class Printer{
       let maxNeg = 0;
       let minNeg = 0;
 
+      if (+props['day'] < 10){
+        props['day'] = '0' + props['day'];
+      }
+
       if (props['maxTemp'] === '' || props['minTemp'] === ''){
-        if (+props['day']<10){
-          console.log('0' + props['day'], 'DATA DOES NOT EXIST');
-        }
-        else{
-          console.log(props['day'], 'DATA DOES NOT EXIST');
-        }
+        console.log(props['day'], 'DATA DOES NOT EXIST');
         return;
       }
 
@@ -58,10 +57,6 @@ export default class Printer{
 
       let maxStr = plus.repeat(+props['maxTemp']);
       let minStr = plus.repeat(+props['minTemp']);
-
-      if (+props['day']<10){
-        props['day'] = '0' + props['day'];
-      }
 
       console.log(props['day'], minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + natural, minus[minNeg] 
                                                + props['minTemp'] + 'C - ' + minus[maxNeg] + props['maxTemp'] + 'C');
