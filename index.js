@@ -1,4 +1,4 @@
-import Main from "./Main.js";
+import Main from "./src/Main.js";
 
 (function run() {
   console.time("\nrun time");

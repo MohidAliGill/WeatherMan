@@ -1,11 +1,11 @@
-import { num2name } from "./src/constants/months.js";
+import { num2name } from "./constants/months.js";
 import {
   minCol,
   maxCol,
   minus,
   plus,
   natural,
-} from "./src/constants/printController.js";
+} from "./constants/printController.js";
 
 export default class Printer {
   printYearlyStats = (props) => {

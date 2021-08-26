@@ -1,5 +1,5 @@
 import fs from "fs";
-import { num2name, name2num } from "./src/constants/months.js";
+import { num2name, name2num } from "./constants/months.js";
 
 export default class Parse {
   constructor(path) {

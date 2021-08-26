@@ -1,6 +1,6 @@
 import Parse from "./Parse.js";
 import Calculate from "./Calculate.js";
-import * as commands from "./src/constants/commands.js";
+import * as commands from "./constants/commands.js";
 
 export default class Main {
   constructor() {
