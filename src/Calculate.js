@@ -42,6 +42,8 @@ export default class Calculate {
   };
 
   monthlyStats = (year, month) => {
+    month = `${+month}`;
+
     this.avgHighTemp = { count: 0, sum: 0 };
     this.avgLowTemp = { count: 0, sum: 0 };
     this.avgMeanHumidity = { count: 0, sum: 0 };
@@ -87,6 +89,7 @@ export default class Calculate {
   };
 
   dailyStats = (year, month) => {
+    month = `${+month}`;
     console.log("\n", year + "/" + month, "\n");
     for (let day in this.data[year][month]) {
       let dayData = this.data[year][month][day];
