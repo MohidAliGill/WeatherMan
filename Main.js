@@ -36,7 +36,12 @@ export default class Main{
         this.parser.filterFiles(year,month);
       }
       this.parser.loadData(this.data);
-      this.processArgs();
+      try{
+        this.processArgs();
+      }
+      catch (e){
+        console.log('Error Occured: ' + e.message);
+      }
     }
   
     processArgs = () => {
