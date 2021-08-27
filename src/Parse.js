@@ -27,31 +27,31 @@ export default class Parse {
     this.requiredFileNames = [...this.requiredFileNames, ...filteredFileNames];
   };
 
-  loadData = (toLoad) => {
+  loadData = (dataBank) => {
     this.requiredFileNames.forEach((file) => {
       const temp = file.split("_");
       const year = temp[2];
       const monthName = temp[3].split(".")[0];
 
-      if (!toLoad[year]) {
-        toLoad[year] = {};
+      if (!dataBank[year]) {
+        dataBank[year] = {};
       }
 
       const month = getMonthNameToNumber(monthName);
 
-      if (!toLoad[year][month]) {
-        toLoad[year][month] = {};
-        const rtnArr = this.readThisFile(file);
-        rtnArr.forEach((line) => {
-          toLoad[year][month][line["currDate"]] = line;
+      if (!dataBank[year][month]) {
+        dataBank[year][month] = {};
+        const fileDataArr = this.filterDataFromFile(file);
+        fileDataArr.forEach((line) => {
+          dataBank[year][month][line["currDate"]] = line;
         });
       }
     });
   };
 
-  readThisFile = (fileName) => {
+  filterDataFromFile = (fileName) => {
     const filePath = this.folderPath + "/" + fileName;
-    let rtnArr = [];
+    let filteredData = [];
 
     let metaData = fs
       .readFileSync(filePath, { encoding: "utf8", flag: "r" })
@@ -64,7 +64,7 @@ export default class Parse {
       let toFilter = dataLine.split(",");
       if (toFilter.length > 1) {
         const currDate = toFilter[0].split("-")[2];
-        rtnArr.push({
+        filteredData.push({
           currDate: currDate,
           maxTemp: toFilter[1],
           minTemp: toFilter[3],
@@ -73,6 +73,6 @@ export default class Parse {
         });
       }
     });
-    return rtnArr;
+    return filteredData;
   };
 }
