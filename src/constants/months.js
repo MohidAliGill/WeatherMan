@@ -13,11 +13,11 @@ const months = [
   "Dec",
 ];
 
-getMonthNameToNumber = (name) => {
+let getMonthNameToNumber = (name) => {
   return months.indexOf(name) + 1;
 };
 
-getMonthNumberToName = (num) => {
+let getMonthNumberToName = (num) => {
   return months[num - 1];
 };
 
