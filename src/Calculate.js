@@ -13,22 +13,22 @@ export default class Calculate {
 
     for (let month in this.data[year]) {
       for (let day in this.data[year][month]) {
-        let dayData = this.data[year][month][day];
-        let dayMaxTemp = dayData["maxTemp"];
-        let dayMinTemp = dayData["minTemp"];
-        let dayMaxHumid = dayData["humidity"];
-        let todayDate = day + "/" + month;
+        const dayData = this.data[year][month][day];
+        const dayMaxTemp = dayData.maxTemp;
+        const dayMinTemp = dayData.minTemp;
+        const dayMaxHumid = dayData.humidity;
+        const todayDate = day + "/" + month;
 
-        if (dayMaxTemp !== "" && dayMaxTemp > this.highestTemp["temp"]) {
-          this.highestTemp = { date: todayDate, temp: parseInt(dayMaxTemp) };
+        if (dayMaxTemp !== "" && dayMaxTemp > this.highestTemp.temp) {
+          this.highestTemp = { date: todayDate, temp: +dayMaxTemp };
         }
 
-        if (dayMinTemp !== "" && dayMinTemp < this.lowestTemp["temp"]) {
-          this.lowestTemp = { date: todayDate, temp: parseInt(dayMinTemp) };
+        if (dayMinTemp !== "" && dayMinTemp < this.lowestTemp.temp) {
+          this.lowestTemp = { date: todayDate, temp: +dayMinTemp };
         }
 
-        if (dayMaxHumid !== "" && dayMaxHumid > this.humidityHigh["temp"]) {
-          this.humidityHigh = { date: todayDate, temp: parseInt(dayMaxHumid) };
+        if (dayMaxHumid !== "" && dayMaxHumid > this.humidityHigh.temp) {
+          this.humidityHigh = { date: todayDate, temp: +dayMaxHumid };
         }
       }
     }
@@ -51,33 +51,31 @@ export default class Calculate {
     for (let day in this.data[year][month]) {
       let dayData = this.data[year][month][day];
 
-      let dayMaxTemp = dayData["maxTemp"];
-      let dayMinTemp = dayData["minTemp"];
-      let dayMeanHumid = dayData["meanHumidity"];
+      const dayMaxTemp = dayData.maxTemp;
+      const dayMinTemp = dayData.minTemp;
+      const dayMeanHumid = dayData.meanHumidity;
 
       if (dayMaxTemp !== "") {
-        this.avgHighTemp["count"]++;
-        this.avgHighTemp["sum"] += +dayMaxTemp;
+        this.avgHighTemp.count++;
+        this.avgHighTemp.sum += +dayMaxTemp;
       }
 
       if (dayMinTemp !== "") {
-        this.avgLowTemp["count"]++;
-        this.avgLowTemp["sum"] += +dayMinTemp;
+        this.avgLowTemp.count++;
+        this.avgLowTemp.sum += +dayMinTemp;
       }
 
       if (dayMeanHumid !== "") {
-        this.avgMeanHumidity["count"]++;
-        this.avgMeanHumidity["sum"] += +dayMeanHumid;
+        this.avgMeanHumidity.count++;
+        this.avgMeanHumidity.sum += +dayMeanHumid;
       }
     }
 
-    let avgMaxTemp = this.avgHighTemp["sum"] / this.avgHighTemp["count"];
-    let avgMinTemp = this.avgLowTemp["sum"] / this.avgLowTemp["count"];
-    let avgHumid = this.avgMeanHumidity["sum"] / this.avgMeanHumidity["count"];
-
-    avgMaxTemp = avgMaxTemp.toFixed(1);
-    avgMinTemp = avgMinTemp.toFixed(1);
-    avgHumid = avgHumid.toFixed(1);
+    let avgMaxTemp = (this.avgHighTemp.sum / this.avgHighTemp.count).toFixed(1);
+    let avgMinTemp = (this.avgLowTemp.sum / this.avgLowTemp.count).toFixed(1);
+    let avgHumid = (
+      this.avgMeanHumidity.sum / this.avgMeanHumidity.count
+    ).toFixed(1);
 
     this.printer.printMonthlyStats({
       avgMaxTemp: avgMaxTemp,
@@ -94,8 +92,8 @@ export default class Calculate {
     for (let day in this.data[year][month]) {
       let dayData = this.data[year][month][day];
 
-      let maxTemp = dayData["maxTemp"];
-      let minTemp = dayData["minTemp"];
+      const maxTemp = dayData.maxTemp;
+      const minTemp = dayData.minTemp;
 
       this.printer.printDailyStats({
         maxTemp: maxTemp,
