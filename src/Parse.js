@@ -1,7 +1,7 @@
 import fs from "fs";
 import {
-  convertMonthNameToNumber,
-  convertMonthNumberToName,
+  getMonthNameToNumber,
+  getMonthNumberToName,
 } from "./constants/months.js";
 
 export default class Parse {
@@ -17,7 +17,7 @@ export default class Parse {
       return name.includes(year);
     });
     if (typeof month !== "undefined") {
-      let monthName = convertMonthNumberToName(month);
+      let monthName = getMonthNumberToName(month);
       let temp = filteredFileNames.filter((name) => {
         return name.includes(monthName);
       });
@@ -37,7 +37,7 @@ export default class Parse {
         toLoad[year] = {};
       }
 
-      let month = convertMonthNameToNumber(monthName);
+      let month = getMonthNameToNumber(monthName);
 
       if (!toLoad[year][month]) {
         toLoad[year][month] = {};
