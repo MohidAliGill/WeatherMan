@@ -5,9 +5,8 @@ import * as commands from "./constants/commands.js";
 export default class Main {
   constructor() {
     this.data = {};
-    this.fileNames = [];
     this.args = process.argv;
-    this.parser = new Parse(this.args[2], this.fileNames);
+    this.parser = new Parse(this.args[2]);
     this.calculate = new Calculate(this.data);
     this.checkArgs();
   }
