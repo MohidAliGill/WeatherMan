@@ -57,8 +57,10 @@ export default class Parse {
       .readFileSync(filePath, { encoding: "utf8", flag: "r" })
       .split("\n");
 
-    metaData = metaData.slice(1, metaData.length);
-    metaData.forEach((dataLine) => {
+    metaData.forEach((dataLine, ind) => {
+      if (ind === 0) {
+        return;
+      }
       let toFilter = dataLine.split(",");
       if (toFilter.length > 1) {
         const currDate = toFilter[0].split("-")[2];
