@@ -1,4 +1,4 @@
-let months = [
+const months = [
   "Jan",
   "Feb",
   "Mar",
@@ -13,12 +13,12 @@ let months = [
   "Dec",
 ];
 
-function convertMonthNameToNumber(name) {
+getMonthNameToNumber = (name) => {
   return months.indexOf(name) + 1;
-}
+};
 
-function convertMonthNumberToName(num) {
+getMonthNumberToName = (num) => {
   return months[num - 1];
-}
+};
 
-export { convertMonthNameToNumber, convertMonthNumberToName };
+export { getMonthNameToNumber, getMonthNumberToName };
