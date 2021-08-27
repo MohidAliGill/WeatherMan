@@ -8,7 +8,7 @@ export default class Parse {
   constructor(path) {
     this.folderPath = path;
     this.fileNames = fs.readdirSync(this.folderPath);
-    this.requiredFiles = [];
+    this.requiredFileNames = [];
   }
 
   filterFiles = (year, month) => {
@@ -24,11 +24,11 @@ export default class Parse {
 
       filteredFileNames = temp;
     }
-    this.requiredFiles = [...this.requiredFiles, ...filteredFileNames];
+    this.requiredFileNames = [...this.requiredFileNames, ...filteredFileNames];
   };
 
   loadData = (toLoad) => {
-    this.requiredFiles.forEach((file) => {
+    this.requiredFileNames.forEach((file) => {
       const temp = file.split("_");
       const year = temp[2];
       const monthName = temp[3].split(".")[0];
