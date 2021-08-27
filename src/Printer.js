@@ -11,8 +11,8 @@ export default class Printer {
   printYearlyStats = (props) => {
     console.log("\n", props.year, "\n");
 
-    let [dateMaxTemp, toNameMaxTemp] = props.highestTemp.date.split("/");
-    let monthMaxTemp = getMonthNumberToName(toNameMaxTemp);
+    const [dateMaxTemp, toNameMaxTemp] = props.highestTemp.date.split("/");
+    const monthMaxTemp = getMonthNumberToName(toNameMaxTemp);
 
     console.log(
       "Highest:",
@@ -21,8 +21,8 @@ export default class Printer {
       dateMaxTemp
     );
 
-    let [dateMinTemp, toNameMinTemp] = props.lowestTemp.date.split("/");
-    let monthMinTemp = getMonthNumberToName(toNameMinTemp);
+    const [dateMinTemp, toNameMinTemp] = props.lowestTemp.date.split("/");
+    const monthMinTemp = getMonthNumberToName(toNameMinTemp);
 
     console.log(
       "Lowest:",
@@ -31,8 +31,8 @@ export default class Printer {
       dateMinTemp
     );
 
-    let [dateMaxHumid, toNameMaxHumid] = props.humidityHigh.date.split("/");
-    let monthMaxHumid = getMonthNumberToName(toNameMaxHumid);
+    const [dateMaxHumid, toNameMaxHumid] = props.humidityHigh.date.split("/");
+    const monthMaxHumid = getMonthNumberToName(toNameMaxHumid);
 
     console.log(
       "Humidity:",

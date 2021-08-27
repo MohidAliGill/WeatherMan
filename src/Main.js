@@ -14,13 +14,13 @@ export default class Main {
 
   checkArgs = () => {
     if (this.args.length < 5) {
-      let err = new Error("Min arguments not met");
+      const err = new Error("Min arguments not met");
       console.log(err.message);
       return err;
     }
 
     if (this.args.length % 2 === 0) {
-      let err = new Error("Error in arguments");
+      const err = new Error("Error in arguments");
       console.log(err.message);
       return err;
     }
@@ -29,7 +29,7 @@ export default class Main {
 
   callParse = () => {
     for (let i = 4; i < this.args.length; i = i + 2) {
-      let [year, month] = this.args[i].split("/");
+      const [year, month] = this.args[i].split("/");
       if (
         this.data[year] &&
         (typeof month === "undefined" || this.data[year][month])
@@ -48,7 +48,7 @@ export default class Main {
 
   processArgs = () => {
     for (let i = 3; i < this.args.length; i = i + 2) {
-      let toDo = this.args[i];
+      const toDo = this.args[i];
       let year;
       let month;
 

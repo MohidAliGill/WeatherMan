@@ -17,8 +17,8 @@ export default class Parse {
       return name.includes(year);
     });
     if (typeof month !== "undefined") {
-      let monthName = getMonthNumberToName(month);
-      let temp = filteredFileNames.filter((name) => {
+      const monthName = getMonthNumberToName(month);
+      const temp = filteredFileNames.filter((name) => {
         return name.includes(monthName);
       });
 
@@ -29,19 +29,19 @@ export default class Parse {
 
   loadData = (toLoad) => {
     this.requiredFiles.forEach((file) => {
-      let temp = file.split("_");
-      let year = temp[2];
-      let monthName = temp[3].split(".")[0];
+      const temp = file.split("_");
+      const year = temp[2];
+      const monthName = temp[3].split(".")[0];
 
       if (!toLoad[year]) {
         toLoad[year] = {};
       }
 
-      let month = getMonthNameToNumber(monthName);
+      const month = getMonthNameToNumber(monthName);
 
       if (!toLoad[year][month]) {
         toLoad[year][month] = {};
-        let rtnArr = this.readThisFile(file);
+        const rtnArr = this.readThisFile(file);
         rtnArr.forEach((line) => {
           toLoad[year][month][line["currDate"]] = line;
         });
@@ -50,7 +50,7 @@ export default class Parse {
   };
 
   readThisFile = (fileName) => {
-    let filePath = this.folderPath + "/" + fileName;
+    const filePath = this.folderPath + "/" + fileName;
     let rtnArr = [];
 
     let metaData = fs.readFileSync(filePath, { encoding: "utf8", flag: "r" });
@@ -58,7 +58,7 @@ export default class Parse {
     for (let i = 1; i < metaData.length; i++) {
       let toFilter = metaData[i].split(",");
       if (toFilter.length > 1) {
-        let currDate = toFilter[0].split("-")[2];
+        const currDate = toFilter[0].split("-")[2];
         rtnArr.push({
           currDate: currDate,
           maxTemp: toFilter[1],

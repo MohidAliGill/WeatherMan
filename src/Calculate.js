@@ -71,9 +71,11 @@ export default class Calculate {
       }
     }
 
-    let avgMaxTemp = (this.avgHighTemp.sum / this.avgHighTemp.count).toFixed(1);
-    let avgMinTemp = (this.avgLowTemp.sum / this.avgLowTemp.count).toFixed(1);
-    let avgHumid = (
+    const avgMaxTemp = (this.avgHighTemp.sum / this.avgHighTemp.count).toFixed(
+      1
+    );
+    const avgMinTemp = (this.avgLowTemp.sum / this.avgLowTemp.count).toFixed(1);
+    const avgHumid = (
       this.avgMeanHumidity.sum / this.avgMeanHumidity.count
     ).toFixed(1);
 
