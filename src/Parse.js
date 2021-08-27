@@ -53,10 +53,13 @@ export default class Parse {
     const filePath = this.folderPath + "/" + fileName;
     let rtnArr = [];
 
-    let metaData = fs.readFileSync(filePath, { encoding: "utf8", flag: "r" });
-    metaData = metaData.split("\n");
-    for (let i = 1; i < metaData.length; i++) {
-      let toFilter = metaData[i].split(",");
+    let metaData = fs
+      .readFileSync(filePath, { encoding: "utf8", flag: "r" })
+      .split("\n");
+
+    metaData = metaData.slice(1, metaData.length);
+    metaData.forEach((dataLine) => {
+      let toFilter = dataLine.split(",");
       if (toFilter.length > 1) {
         const currDate = toFilter[0].split("-")[2];
         rtnArr.push({
@@ -67,7 +70,7 @@ export default class Parse {
           meanHumidity: toFilter[8],
         });
       }
-    }
+    });
     return rtnArr;
   };
 }
