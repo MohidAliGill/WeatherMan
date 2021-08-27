@@ -34,9 +34,9 @@ export default class Calculate {
     }
 
     this.printer.printYearlyStats({
-      dataMaxTemp: this.highestTemp,
-      dataMinTemp: this.lowestTemp,
-      dataMaxHumid: this.humidityHigh,
+      highestTemp: this.highestTemp,
+      lowestTemp: this.lowestTemp,
+      humidityHigh: this.humidityHigh,
       year: year,
     });
   };
