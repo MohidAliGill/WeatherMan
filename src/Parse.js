@@ -29,11 +29,11 @@ export default class Parse {
     });
     if (month) {
       const monthName = getMonthName(month);
-      const temp = filteredFileNames.filter((name) => {
+      const filesForTheMonth = filteredFileNames.filter((name) => {
         return name.includes(monthName);
       });
 
-      filteredFileNames = temp;
+      filteredFileNames = filesForTheMonth;
     }
     this.requiredFileNames = [...this.requiredFileNames, ...filteredFileNames];
   };
@@ -44,9 +44,9 @@ export default class Parse {
    */
   loadData = (dataBank) => {
     this.requiredFileNames.forEach((file) => {
-      const temp = file.split("_");
-      const year = temp[2];
-      const monthName = temp[3].split(".")[0];
+      const fileName = file.split("_");
+      const year = fileName[2];
+      const monthName = fileName[3].split(".")[0];
 
       if (!dataBank[year]) {
         dataBank[year] = {};
