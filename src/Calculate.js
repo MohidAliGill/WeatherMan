@@ -14,21 +14,19 @@ export default class Calculate {
     for (let month in this.data[year]) {
       for (let day in this.data[year][month]) {
         const dayData = this.data[year][month][day];
-        const dayMaxTemp = dayData.maxTemp;
-        const dayMinTemp = dayData.minTemp;
-        const dayMaxHumid = dayData.humidity;
+        const { maxTemp, minTemp, humidity } = dayData;
         const todayDate = day + "/" + month;
 
-        if (dayMaxTemp && dayMaxTemp > this.highestTemp.temp) {
-          this.highestTemp = { date: todayDate, temp: +dayMaxTemp };
+        if (maxTemp && maxTemp > this.highestTemp.temp) {
+          this.highestTemp = { date: todayDate, temp: +maxTemp };
         }
 
-        if (dayMinTemp && dayMinTemp < this.lowestTemp.temp) {
-          this.lowestTemp = { date: todayDate, temp: +dayMinTemp };
+        if (minTemp && minTemp < this.lowestTemp.temp) {
+          this.lowestTemp = { date: todayDate, temp: +minTemp };
         }
 
-        if (dayMaxHumid && dayMaxHumid > this.humidityHigh.temp) {
-          this.humidityHigh = { date: todayDate, temp: +dayMaxHumid };
+        if (humidity && humidity > this.humidityHigh.temp) {
+          this.humidityHigh = { date: todayDate, temp: +humidity };
         }
       }
     }
