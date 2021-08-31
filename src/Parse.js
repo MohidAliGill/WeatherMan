@@ -44,9 +44,8 @@ export default class Parse {
    */
   loadData = (dataBank) => {
     this.requiredFileNames.forEach((file) => {
-      const fileName = file.split("_");
-      const year = fileName[2];
-      const monthName = fileName[3].split(".")[0];
+      const [, , year, monthNameAndExtension] = file.split("_");
+      const monthName = monthNameAndExtension.split(".")[0];
 
       if (!dataBank[year]) {
         dataBank[year] = {};
