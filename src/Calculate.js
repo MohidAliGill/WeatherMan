@@ -1,11 +1,23 @@
 import Printer from "./Printer.js";
 
+/**
+ * Class responsible for all the calculations of the tasks
+ */
 export default class Calculate {
+  /**
+   * @constructor
+   * @param {object} data - A reference to the JSON containing all the data to perform calculations on
+   */
   constructor(data) {
     this.data = data;
     this.printer = new Printer();
   }
 
+  /**
+   * Calculates the max temp, min temp and max humidity for the given year
+   * @param {number} year - The year of which the data is required
+   * Calls the printYearlyStats from the Printer class after its calculations are complete
+   */
   yearlyStats = (year) => {
     this.highestTemp = { date: null, temp: -Infinity };
     this.lowestTemp = { date: null, temp: Infinity };
@@ -39,6 +51,12 @@ export default class Calculate {
     });
   };
 
+  /**
+   * Calculates the average max temp, average min temp and average mean humidity for the given month of the given year
+   * @param {number} year - The month of this year's data is required
+   * @param {number} month - The month for which data is required
+   * Calls the printMonthlyStats from Printer class after its execution is complete
+   */
   monthlyStats = (year, month) => {
     month = `${+month}`;
 
@@ -86,6 +104,12 @@ export default class Calculate {
     });
   };
 
+  /**
+   * Calculates the max temp and min temp for each day
+   * @param {number} year - The month of this year's data is required
+   * @param {number} month - The month for which each days data is required
+   * Calls the printDailyStats from Printer class after its execution is complete
+   */
   dailyStats = (year, month) => {
     month = `${+month}`;
     console.log("\n", year + "/" + month, "\n");

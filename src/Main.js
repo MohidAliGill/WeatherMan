@@ -2,7 +2,14 @@ import Parse from "./Parse.js";
 import Calculate from "./Calculate.js";
 import * as commands from "./constants/commands.js";
 
+/**
+ * Main driver class check for args and calls the required functions
+ */
 export default class Main {
+  /**
+   * Represents the driver Main class
+   * @constructor
+   */
   constructor() {
     this.data = {};
     this.args = process.argv;
@@ -11,6 +18,10 @@ export default class Main {
     this.checkArgs();
   }
 
+  /**
+   * Checks if valid arguments are passed to the programme
+   * @returns {Error} - If error occurs it is returned
+   */
   checkArgs = () => {
     if (this.args.length < 5) {
       const err = new Error("Min arguments not met");
@@ -26,6 +37,9 @@ export default class Main {
     this.callParse();
   };
 
+  /**
+   * Reads the required files and load its data to a JSON
+   */
   callParse = () => {
     for (let i = 4; i < this.args.length; i = i + 2) {
       const [year, month] = this.args[i].split("/");
@@ -43,6 +57,9 @@ export default class Main {
     }
   };
 
+  /**
+   *  Handles all the arguments, calls the required function passing the given parameters (year, month)
+   */
   processArgs = () => {
     for (let i = 3; i < this.args.length; i = i + 2) {
       const toDo = this.args[i];

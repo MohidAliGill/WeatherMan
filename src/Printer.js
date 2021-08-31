@@ -7,7 +7,14 @@ import {
   natural,
 } from "./constants/printController.js";
 
+/**
+ * Class responsible for printing all the calculated data
+ */
 export default class Printer {
+  /**
+   * Prints the max temp, min temp , max humidity for the given year and their dates
+   * @param {object} props - The calculated data to be printed
+   */
   printYearlyStats = (props) => {
     console.log("\n", props.year, "\n");
 
@@ -42,6 +49,10 @@ export default class Printer {
     );
   };
 
+  /**
+   * Prints the average max temp, average min temp, average mean humidity for the month
+   * @param {object} props - The calculated data to be printed
+   */
   printMonthlyStats = (props) => {
     console.log("\n", props.year + "/" + props.month, "\n");
 
@@ -50,6 +61,10 @@ export default class Printer {
     console.log("Average Mean Humidity:", props.avgHumid + "%");
   };
 
+  /**
+   * Graphically represents the min temp and max temp of each day of the month
+   * @param {object} props - The calculated data to be printed
+   */
   printDailyStats = (props) => {
     let maxNeg = 0;
     let minNeg = 0;

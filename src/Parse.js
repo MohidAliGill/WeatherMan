@@ -1,13 +1,27 @@
 import fs from "fs";
 import { getMonthIndex, getMonthName } from "./constants/months.js";
 
+/**
+ * Class responsible for filtering the required files, reading them and then loading
+ * the required data to the JSON
+ */
 export default class Parse {
+  /**
+   * Reads the files in the given directory and initializes the required vars
+   * @constructor
+   * @param {string} path - The path to the folder containing all the files
+   */
   constructor(path) {
     this.folderPath = path;
     this.fileNames = fs.readdirSync(this.folderPath);
     this.requiredFileNames = [];
   }
 
+  /**
+   * Filters the required files (as per user inputs) from a pool of files and updates them in this.requiredFileNames
+   * @param {number} year - year for which the data is required
+   * @param {number} month - month for which the data is required
+   */
   filterFiles = (year, month) => {
     let filteredFileNames;
     filteredFileNames = this.fileNames.filter((name) => {
@@ -24,6 +38,10 @@ export default class Parse {
     this.requiredFileNames = [...this.requiredFileNames, ...filteredFileNames];
   };
 
+  /**
+   * Loads data returned from filterDataFile() to the JSON
+   * @param {object} dataBank - reference to the JSON where the data is to be loaded
+   */
   loadData = (dataBank) => {
     this.requiredFileNames.forEach((file) => {
       const temp = file.split("_");
@@ -46,6 +64,11 @@ export default class Parse {
     });
   };
 
+  /**
+   * Reads the required file and filters the required usefull data.
+   * @param {string} fileName - The name of file to read and extract the useful data from
+   * @returns {object} filteredData - An object containing only the required data from the file
+   */
   filterDataFromFile = (fileName) => {
     const filePath = this.folderPath + "/" + fileName;
     let filteredData = [];
