@@ -1,8 +1,5 @@
 import fs from "fs";
-import {
-  getMonthNameToNumber,
-  getMonthNumberToName,
-} from "./constants/months.js";
+import { getMonthIndex, getMonthName } from "./constants/months.js";
 
 export default class Parse {
   constructor(path) {
@@ -17,7 +14,7 @@ export default class Parse {
       return name.includes(year);
     });
     if (month) {
-      const monthName = getMonthNumberToName(month);
+      const monthName = getMonthName(month);
       const temp = filteredFileNames.filter((name) => {
         return name.includes(monthName);
       });
@@ -37,7 +34,7 @@ export default class Parse {
         dataBank[year] = {};
       }
 
-      const month = getMonthNameToNumber(monthName);
+      const month = getMonthIndex(monthName);
 
       if (!dataBank[year][month]) {
         dataBank[year][month] = {};

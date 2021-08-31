@@ -1,4 +1,4 @@
-import { getMonthNumberToName } from "./constants/months.js";
+import { getMonthName } from "./constants/months.js";
 import {
   minCol,
   maxCol,
@@ -12,7 +12,7 @@ export default class Printer {
     console.log("\n", props.year, "\n");
 
     const [dateMaxTemp, toNameMaxTemp] = props.highestTemp.date.split("/");
-    const monthMaxTemp = getMonthNumberToName(toNameMaxTemp);
+    const monthMaxTemp = getMonthName(toNameMaxTemp);
 
     console.log(
       "Highest:",
@@ -22,7 +22,7 @@ export default class Printer {
     );
 
     const [dateMinTemp, toNameMinTemp] = props.lowestTemp.date.split("/");
-    const monthMinTemp = getMonthNumberToName(toNameMinTemp);
+    const monthMinTemp = getMonthName(toNameMinTemp);
 
     console.log(
       "Lowest:",
@@ -32,7 +32,7 @@ export default class Printer {
     );
 
     const [dateMaxHumid, toNameMaxHumid] = props.humidityHigh.date.split("/");
-    const monthMaxHumid = getMonthNumberToName(toNameMaxHumid);
+    const monthMaxHumid = getMonthName(toNameMaxHumid);
 
     console.log(
       "Humidity:",
