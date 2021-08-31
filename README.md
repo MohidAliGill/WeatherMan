@@ -7,7 +7,7 @@ This assignment can perform three tasks for you which are as follows:
 
    To get this data, run the following command
 
-   ```
+```
    node index.js <folderPath> -e <year>
    e.g:
    node index.js ./weatherfiles -e 2013
@@ -21,7 +21,7 @@ This assignment can perform three tasks for you which are as follows:
 
    To get this data, run the following command
 
-   ```
+```
    node index.js <folderPath> -a <year>/<month>
    e.g:
    node index.js ./weatherfiles -a 2013/12
@@ -34,7 +34,7 @@ This assignment can perform three tasks for you which are as follows:
 
    To get this data, run the following command
 
-   ```
+```
    node index.js <folderPath> -c <year>/<month>
    e.g:
    node index.js ./weatherfiles -c 2013/12
