@@ -16,36 +16,27 @@ export default class Printer {
    * @param {object} props - The calculated data to be printed
    */
   printYearlyStats = (props) => {
-    console.log("\n", props.year, "\n");
+    console.log(`\n${props.year}\n`);
 
     const [dateMaxTemp, toNameMaxTemp] = props.highestTemp.date.split("/");
     const monthMaxTemp = getMonthName(toNameMaxTemp);
 
     console.log(
-      "Highest:",
-      props.highestTemp.temp + "C on",
-      monthMaxTemp,
-      dateMaxTemp
+      `Highest: ${props.highestTemp.temp}C on ${monthMaxTemp} ${dateMaxTemp}`
     );
 
     const [dateMinTemp, toNameMinTemp] = props.lowestTemp.date.split("/");
     const monthMinTemp = getMonthName(toNameMinTemp);
 
     console.log(
-      "Lowest:",
-      props.lowestTemp.temp + "C on",
-      monthMinTemp,
-      dateMinTemp
+      `Lowest: ${props.lowestTemp.temp}C on ${monthMinTemp} ${dateMinTemp}`
     );
 
     const [dateMaxHumid, toNameMaxHumid] = props.humidityHigh.date.split("/");
     const monthMaxHumid = getMonthName(toNameMaxHumid);
 
     console.log(
-      "Humidity:",
-      props.humidityHigh.temp + "% on",
-      monthMaxHumid,
-      dateMaxHumid
+      `Humidity: ${props.humidityHigh.temp}% on ${monthMaxHumid} ${dateMaxHumid}`
     );
   };
 
@@ -54,11 +45,11 @@ export default class Printer {
    * @param {object} props - The calculated data to be printed
    */
   printMonthlyStats = (props) => {
-    console.log("\n", props.year + "/" + props.month, "\n");
+    console.log(`\n${props.year}/${props.month}\n`);
 
-    console.log("Highest Average:", props.avgMaxTemp + "C");
-    console.log("Lowest Average:", props.avgMinTemp + "C");
-    console.log("Average Mean Humidity:", props.avgHumid + "%");
+    console.log(`Highest Average: ${props.avgMaxTemp}C`);
+    console.log(`Lowest Average: ${props.avgMinTemp}C`);
+    console.log(`Average Mean Humidity: ${props.avgHumid}%`);
   };
 
   /**
@@ -70,11 +61,11 @@ export default class Printer {
     let minNeg = 0;
 
     if (+props.day < 10) {
-      props.day = "0" + props.day;
+      props.day = `0${props.day}`;
     }
 
     if (!props.maxTemp || !props.minTemp) {
-      console.log(props.day, "DATA DOES NOT EXIST");
+      console.log(`${props.day} DATA DOES NOT EXIST`);
       return;
     }
 
@@ -88,18 +79,11 @@ export default class Printer {
       maxNeg = 1;
     }
 
-    let maxStr = plus.repeat(+props.maxTemp);
-    let minStr = plus.repeat(+props.minTemp);
+    let maxStr = maxCol[maxNeg] + plus.repeat(+props.maxTemp) + natural;
+    let minStr = minCol[minNeg] + plus.repeat(+props.minTemp);
 
-    console.log(
-      props.day,
-      minCol[minNeg] + minStr + maxCol[maxNeg] + maxStr + natural,
-      minus[minNeg] +
-        props.minTemp +
-        "C - " +
-        minus[maxNeg] +
-        props.maxTemp +
-        "C"
-    );
+    let dayGraphToPrint = `${props.day} ${minStr}${maxStr} ${minus[minNeg]}${props.minTemp}C - ${minus[maxNeg]}${props.maxTemp}C`;
+
+    console.log(dayGraphToPrint);
   };
 }

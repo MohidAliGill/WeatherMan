@@ -27,7 +27,7 @@ export default class Calculate {
       for (let day in this.data[year][month]) {
         const dayData = this.data[year][month][day];
         const { maxTemp, minTemp, humidity } = dayData;
-        const todayDate = day + "/" + month;
+        const todayDate = `${day}/${month}`;
 
         if (maxTemp && maxTemp > this.highestTemp.temp) {
           this.highestTemp = { date: todayDate, temp: +maxTemp };
@@ -112,7 +112,7 @@ export default class Calculate {
    */
   dailyStats = (year, month) => {
     month = `${+month}`;
-    console.log("\n", year + "/" + month, "\n");
+    console.log(`\n${year}/${month}\n`);
     for (let day in this.data[year][month]) {
       let dayData = this.data[year][month][day];
 
