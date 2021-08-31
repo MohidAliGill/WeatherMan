@@ -16,7 +16,7 @@ export default class Parse {
     filteredFileNames = this.fileNames.filter((name) => {
       return name.includes(year);
     });
-    if (typeof month !== "undefined") {
+    if (month) {
       const monthName = getMonthNumberToName(month);
       const temp = filteredFileNames.filter((name) => {
         return name.includes(monthName);

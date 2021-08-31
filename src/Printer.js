@@ -58,7 +58,7 @@ export default class Printer {
       props.day = "0" + props.day;
     }
 
-    if (props.maxTemp === "" || props.minTemp === "") {
+    if (!props.maxTemp || !props.minTemp) {
       console.log(props.day, "DATA DOES NOT EXIST");
       return;
     }

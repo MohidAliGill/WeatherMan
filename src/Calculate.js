@@ -19,15 +19,15 @@ export default class Calculate {
         const dayMaxHumid = dayData.humidity;
         const todayDate = day + "/" + month;
 
-        if (dayMaxTemp !== "" && dayMaxTemp > this.highestTemp.temp) {
+        if (dayMaxTemp && dayMaxTemp > this.highestTemp.temp) {
           this.highestTemp = { date: todayDate, temp: +dayMaxTemp };
         }
 
-        if (dayMinTemp !== "" && dayMinTemp < this.lowestTemp.temp) {
+        if (dayMinTemp && dayMinTemp < this.lowestTemp.temp) {
           this.lowestTemp = { date: todayDate, temp: +dayMinTemp };
         }
 
-        if (dayMaxHumid !== "" && dayMaxHumid > this.humidityHigh.temp) {
+        if (dayMaxHumid && dayMaxHumid > this.humidityHigh.temp) {
           this.humidityHigh = { date: todayDate, temp: +dayMaxHumid };
         }
       }
@@ -55,17 +55,17 @@ export default class Calculate {
       const dayMinTemp = dayData.minTemp;
       const dayMeanHumid = dayData.meanHumidity;
 
-      if (dayMaxTemp !== "") {
+      if (dayMaxTemp) {
         this.avgHighTemp.count++;
         this.avgHighTemp.sum += +dayMaxTemp;
       }
 
-      if (dayMinTemp !== "") {
+      if (dayMinTemp) {
         this.avgLowTemp.count++;
         this.avgLowTemp.sum += +dayMinTemp;
       }
 
-      if (dayMeanHumid !== "") {
+      if (dayMeanHumid) {
         this.avgMeanHumidity.count++;
         this.avgMeanHumidity.sum += +dayMeanHumid;
       }
