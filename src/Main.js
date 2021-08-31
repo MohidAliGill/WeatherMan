@@ -29,9 +29,9 @@ export default class Main {
   callParse = () => {
     for (let i = 4; i < this.args.length; i = i + 2) {
       const [year, month] = this.args[i].split("/");
-      // check if the year/month data is already loaded
+      // check if the year & month data is already loaded
       if (this.data[year] && (!month || this.data[year][month])) {
-        continue; // if the data is loaded we skip to the next command
+        continue; // if the data is loaded we skip to the next iteration
       }
       this.parser.filterFiles(year, month);
     }
